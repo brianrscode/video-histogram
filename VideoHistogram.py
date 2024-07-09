@@ -23,6 +23,17 @@ class VideoHistogram:
         self.ax.set_xlim(0, 256)
         self.ax.set_ylim(0, 10000)
 
+    def __update_histogram(self, linea, histograma):
+        # Actualizar la línea del plot con los valores del histograma
+        linea.set_ydata(histograma)
+        # Normalizar histograma.
+        # histograma = np.divide(histograma, np.sum(histograma))
+        # Cambiar el valor máximo del eje y
+        # self.ax.set_ylim(0, histograma.max() * 1.1)
+        # Redibujar la linea.
+        self.fig.canvas.draw()
+        self.fig.canvas.flush_events()
+
     def gray_histogram(self):
         self.ax.set_title("Histogram (grayscale)")
         linea, = self.ax.plot(np.arange(256), np.zeros((256,1)), c='k', label='intensity')
@@ -37,17 +48,7 @@ class VideoHistogram:
 
             # Calcular histograma.
             histograma = cv2.calcHist([gray], [0], None, [256], [0, 256])
-            # Normalizar histograma.
-            # histograma = np.divide(histograma, np.sum(histograma))
-
-            # Actualizar la línea del plot con los valores del histograma
-            linea.set_ydata(histograma)
-            # Cambiar el valor máximo del eje y
-            # ax.set_ylim(0, histograma.max())
-
-            # Redibujar la linea.
-            self.fig.canvas.draw()
-            self.fig.canvas.flush_events()
+            self.__update_histogram(linea, histograma)
 
             # Mostrar el frame de la cámara en una ventana
             cv2.imshow("grayscale", gray)
@@ -84,9 +85,9 @@ class VideoHistogram:
             # histogram_r = np.divide(histogram_r, np.sum(histogram_r))
 
             # Actualizar las líneas del plot con los valores del histograma
-            linea_b.set_ydata(histogram_b)
-            linea_g.set_ydata(histogram_g)
-            linea_r.set_ydata(histogram_r)
+            self.__update_histogram(linea_b, histogram_b)
+            self.__update_histogram(linea_g, histogram_g)
+            self.__update_histogram(linea_r, histogram_r)
 
             # Cambiar el valor máximo del eje y
             # ax.set_ylim(0, max(histogram_b.max(), histogram_g.max(), histogram_r.max()))

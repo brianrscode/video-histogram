@@ -19,7 +19,7 @@ linea, = ax.plot(np.arange(256), np.zeros((256,1)), c='k', label='intensity')
 plt.ion()
 plt.show()
 
-cap = cv2.VideoCapture("prueba_azul.mp4")
+cap = cv2.VideoCapture(0)
 
 while cap.isOpened():
     ret, frame = cap.read()

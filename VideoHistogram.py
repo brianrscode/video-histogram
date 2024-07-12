@@ -18,10 +18,11 @@ class VideoHistogram:
             self.cap = cv2.VideoCapture(0)
 
         self. fig, self. ax = plt.subplots()
-        self.ax.set_xlabel("Cantidad de píxeles")
-        self.ax.set_ylabel("Valor de intensidad")
-        self.ax.set_xlim(0, 256)
-        self.ax.set_ylim(0, 10000)
+        self.ax.set_xlabel("Valor de intensidad")
+        self.ax.set_ylabel("Cantidad de píxeles")
+        self.ax.set_xlim(0, 256)  # Eje x de 0 a 256
+        self.ax.set_ylim(0, 10_000)  # Eje y de 0 a 10000
+        self.ax.grid(True)  # Habilitar la cuadrícula
 
     def __update_histogram(self, linea, histograma):
         # Actualizar la línea del plot con los valores del histograma
@@ -36,7 +37,7 @@ class VideoHistogram:
 
     def gray_histogram(self):
         self.ax.set_title("Histogram (grayscale)")
-        linea, = self.ax.plot(np.arange(256), np.zeros((256,1)), c='k', label='intensity')
+        linea, = self.ax.plot(np.arange(256), np.zeros(256), c='k', label='intensity')
         plt.ion()
         plt.show()
         while self.cap.isOpened():
@@ -61,9 +62,9 @@ class VideoHistogram:
 
     def rgb_histogram(self):
         self.ax.set_title("Histogram (RGB)")
-        linea_b, = self.ax.plot(np.arange(256), np.zeros((256,1)), c='b', label='Blue')
-        linea_g, = self.ax.plot(np.arange(256), np.zeros((256,1)), c='g', label='Green')
-        linea_r, = self.ax.plot(np.arange(256), np.zeros((256,1)), c='r', label='Red')
+        linea_b, = self.ax.plot(np.arange(256), np.zeros(256), c='b', label='Blue')
+        linea_g, = self.ax.plot(np.arange(256), np.zeros(256), c='g', label='Green')
+        linea_r, = self.ax.plot(np.arange(256), np.zeros(256), c='r', label='Red')
         plt.ion()
         plt.show()
         while self.cap.isOpened():
@@ -104,5 +105,5 @@ class VideoHistogram:
 
 
 hist = VideoHistogram(1)
-# hist.gray_histogram()
-hist.rgb_histogram()
+hist.gray_histogram()
+# hist.rgb_histogram()

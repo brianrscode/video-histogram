@@ -6,21 +6,22 @@ import numpy as np
 # Inicial la figura y el subplot.
 fig, ax = plt.subplots()
 ax.set_title("Histogram (RGB)")
-ax.set_xlabel("Cantidad de píxeles")
-ax.set_ylabel("Valor de intensidad")
-ax.set_xlim(0, 256)
-ax.set_ylim(0, 40000)
+ax.set_xlabel("Valor de intensidad")
+ax.set_ylabel("Cantidad de píxeles")
+ax.set_xlim(0, 256)  # Eje x de 0 a 256
+ax.set_ylim(0, 10_000)  # Eje y de 0 a 40000
+ax.grid(True)  # Habilitar la cuadrícula
 
 # Dibujar las lineas iniciales.
-linea_b, = ax.plot(np.arange(256), np.zeros((256,1)), c='b', label='Blue')
-linea_g, = ax.plot(np.arange(256), np.zeros((256,1)), c='g', label='Green')
-linea_r, = ax.plot(np.arange(256), np.zeros((256,1)), c='r', label='Red')
+linea_b, = ax.plot(np.arange(256), np.zeros(256), c='b', label='Blue')
+linea_g, = ax.plot(np.arange(256), np.zeros(256), c='g', label='Green')
+linea_r, = ax.plot(np.arange(256), np.zeros(256), c='r', label='Red')
 
 # Mostrar figuras.
-plt.ion()
-plt.show()
+plt.ion()  # Activa la interacción con la ventana.
+plt.show()  # Muestra la ventana.
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 while cap.isOpened():
     ret, frame = cap.read()

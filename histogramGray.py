@@ -6,20 +6,21 @@ import numpy as np
 # Inicial la figura y el subplot.
 fig, ax = plt.subplots()
 ax.set_title("Histogram (grayscale)")
-ax.set_xlabel("Cantidad de píxeles")
-ax.set_ylabel("Valor de intensidad")
-ax.set_xlim(0, 256)
-ax.set_ylim(0, 10000)
+ax.set_xlabel("Valor de intensidad")
+ax.set_ylabel("Cantidad de píxeles")
+ax.set_xlim(0, 256)  # Eje x de 0 a 256
+ax.set_ylim(0, 10_000)  # Eje y de 0 a 10000
+ax.grid(True)  # Habilitar la cuadrícula
 
 # Dibujar la linea inicial.
-linea, = ax.plot(np.arange(256), np.zeros((256,1)), c='k', label='intensity')
+linea, = ax.plot(np.arange(256), np.zeros(256), c='k', label='intensity')
 # linea, = ax.plot([128, 128], [0, 1], c='k', label='intensity')
 
 # Mostrar figura.
 plt.ion()
 plt.show()
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 while cap.isOpened():
     ret, frame = cap.read()
